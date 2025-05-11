@@ -1,10 +1,12 @@
+using System.Text.Json.Serialization;
 using APICatalogo.Context;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Adiciona serviços ao contêiner.
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(options =>
+ options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
 // Configura o EF Core com MySQL
 string mySqlConnection = builder.Configuration.GetConnectionString("DefaultConnection");
