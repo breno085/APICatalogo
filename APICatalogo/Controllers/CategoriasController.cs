@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using APICatalogo.Context;
 using APICatalogo.Models;
+using APICatalogo.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -47,6 +48,18 @@ namespace APICatalogo.Controllers
         public ActionResult<IEnumerable<Categoria>> GetCategoriasProdutos()
         {
             return _context.Categorias.Include(p => p.Produtos).AsNoTracking().ToList();
+        }
+
+        [HttpGet("UsandoFromServices/{nome}")]
+        public ActionResult<string> GetSaudacaoFromServices([FromServices] IMeuServico meuServico, string nome)
+        {
+            return meuServico.Saudacao(nome);
+        }
+
+        [HttpGet("SemUsarFromServices/{nome}")]
+        public ActionResult<string> GetSaudacaoSemFromServices(IMeuServico meuServico, string nome)
+        {
+            return meuServico.Saudacao(nome);
         }
 
         [HttpPost]
