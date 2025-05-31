@@ -61,6 +61,7 @@ namespace APICatalogo.Controllers
             if (categoria is null)
             {
                 _logger.LogInformation($"=========== GET api/categoria/id id = {id} NOT FOUND ===========");
+                _logger.LogWarning($"Categoria com id= {id} não encontrada...");
                 return NotFound("Categoria não encontrada...");
             }
 
@@ -90,7 +91,10 @@ namespace APICatalogo.Controllers
         public ActionResult Post(Categoria categoria)
         {
             if (categoria is null)
-                return BadRequest();
+            {
+                _logger.LogWarning($"Dados inválidos...");
+                return BadRequest("Dados inválidos");
+            }
             
             _context.Categorias.Add(categoria);
             _context.SaveChanges();
@@ -103,7 +107,8 @@ namespace APICatalogo.Controllers
         {
             if (id != categoria.CategoriaId)
             {
-                return BadRequest();
+                _logger.LogWarning($"Dados inválidos...");
+                return BadRequest("Dados inválidos");
             }
 
             _context.Entry(categoria).State = EntityState.Modified;
@@ -119,7 +124,8 @@ namespace APICatalogo.Controllers
 
             if(categoria is null)
             {
-                return NotFound("Categoria não encontrada...");
+                _logger.LogWarning($"Categoria com id={id} não encontrada...");
+                return NotFound($"Categoria com id={id} não encontrada...");
             }
 
             _context.Categorias.Remove(categoria);

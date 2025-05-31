@@ -9,8 +9,14 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Adiciona serviços ao contêiner.
-builder.Services.AddControllers().AddJsonOptions(options =>
- options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add(typeof(ApiExceptionFilter));
+})
+.AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+});
 
 // Configura o EF Core com MySQL
 string mySqlConnection = builder.Configuration.GetConnectionString("DefaultConnection");

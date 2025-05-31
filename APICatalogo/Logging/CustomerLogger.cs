@@ -35,7 +35,7 @@ public class CustomerLogger : ILogger
     }
 
     private void EscreverTextoNoArquivo(string mensagem)
-    {
+    {   //tenho que editar esse endereço para o meu pc
         string caminhoArquivoLog = @"d:\dados\log\Macoratti_Log.txt";
         using (StreamWriter streamWriter = new StreamWriter(caminhoArquivoLog, true))
         {
