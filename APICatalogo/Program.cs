@@ -1,6 +1,7 @@
 using System.Text.Json.Serialization;
 using APICatalogo.Context;
 using APICatalogo.Extensions;
+using APICatalogo.Filters;
 using APICatalogo.Services;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,6 +19,8 @@ var valor2 = builder.Configuration["secao1:chave2"];
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseMySql(mySqlConnection, ServerVersion.AutoDetect(mySqlConnection)));
+
+builder.Services.AddScoped<ApiLoggingFilter>();
 
 // Ativa a geração da documentação via Swagger/OpenAPI
 builder.Services.AddEndpointsApiExplorer();

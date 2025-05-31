@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using APICatalogo.Context;
+using APICatalogo.Filters;
 using APICatalogo.Models;
 using APICatalogo.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -36,12 +37,13 @@ namespace APICatalogo.Controllers
         }
 
         [HttpGet]
+        [ServiceFilter(typeof(ApiLoggingFilter))]
         public ActionResult<IEnumerable<Categoria>> Get()
         {
             var categorias = _context.Categorias.AsNoTracking().ToList();
             if (categorias is null)
                 return NotFound();
-            
+
             return categorias;
         }
 
