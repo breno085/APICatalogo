@@ -30,6 +30,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddScoped<ApiLoggingFilter>();
 builder.Services.AddTransient<ICategoriaRepository, CategoriaRepository>();
+builder.Services.AddTransient<IProdutoRepository, ProdutoRepository>();
 
 // Ativa a geração da documentação via Swagger/OpenAPI
 builder.Services.AddEndpointsApiExplorer();
